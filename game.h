@@ -11,4 +11,12 @@ typedef struct Meteoro {
     int x;
     int y;
     struct Meteoro* prox;
-} Meteoro;
+} Meteoro;      
+
+
+//// Variáveis Globais (extern permite que sejam compartilhadas entre os arquivos .c)
+extern char matrizTela[ALTURA][LARGURA];
+extern Meteoro* listaMeteoros;
+extern Nave jogador;
+extern int score;
+extern int gameOver;
