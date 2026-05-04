@@ -20,3 +20,9 @@ extern Meteoro* listaMeteoros;
 extern Nave jogador;
 extern int score;
 extern int gameOver;
+
+void inicializarJogo();
+void prepararMatriz();
+void desenharTela();
+
+#endif

@@ -1,8 +1,10 @@
-#include <stdio.h>
 #include <stdlib.h>
+#include "game.h"
 
 int main() {
-    printf("Bem-vindo ao Meteor Dodge!\n");
-    printf("Projeto de PIF inicializado.\n");
+    system("cls");
+    inicializarJogo();
+    prepararMatriz();
+    desenharTela();
     return 0;
 }
