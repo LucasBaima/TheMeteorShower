@@ -17,12 +17,13 @@ void processarInput() {
 
 
 int main() {
-    inicializarJogo();
+    srand(time(NULL));
     system("cls");
-
-
-    while (!gameOver){
+    inicializarJogo();
+    
+    while (!gameOver) {
         processarInput();
+        if (rand() % 100 < 30) gerarMeteoro(); // Gera meteoros dinamicamente
         prepararMatriz();
         desenharTela();
         Sleep(50);

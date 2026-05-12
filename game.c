@@ -6,16 +6,31 @@
 char matrizTela[ALTURA][LARGURA];
 Nave jogador;
 int gameOver = 0;
+Meteoro* listaMeteoros = NULL;
 
 void inicializarJogo() {
     jogador.x = LARGURA / 2;
     jogador.y = ALTURA - 1;
     gameOver = 0;
+    listaMeteoros = NULL;
+}
+void gerarMeteoro() {
+    Meteoro* novoMeteoro = (Meteoro*)malloc(sizeof(Meteoro));
+    if (novoMeteoro == NULL) return;
+    novoMeteoro->x = rand() % LARGURA;
+    novoMeteoro->y = 0;
+    novoMeteoro->prox = listaMeteoros;
+    listaMeteoros = novoMeteoro;
 }
 
 void prepararMatriz() {
     for (int i = 0; i < ALTURA; i++) {
         for (int j = 0; j < LARGURA; j++) matrizTela[i][j] = ' ';
+    }
+    Meteoro* atual = listaMeteoros;
+    while (atual != NULL) {
+        if (atual->y < ALTURA) matrizTela[atual->y][atual->x] = 'O';
+        atual = atual->prox;
     }
     matrizTela[jogador.y][jogador.x] = '^';
 }

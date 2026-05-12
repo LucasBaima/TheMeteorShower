@@ -22,7 +22,9 @@ extern int score;
 extern int gameOver;
 
 void inicializarJogo();
+void gerarMeteoro();
 void prepararMatriz();
 void desenharTela();
+void processarInput();
 
 #endif
