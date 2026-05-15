@@ -5,6 +5,7 @@
 
 char matrizTela[ALTURA][LARGURA];
 Nave jogador;
+int score = 0; 
 int gameOver = 0;
 Meteoro* listaMeteoros = NULL;
 
@@ -48,4 +49,28 @@ void desenharTela() {
     }
     for (int i = 0; i < LARGURA + 2; i++) printf("-");
     printf("\n");
+}
+
+void atualizarMeteoros() {
+    Meteoro* atual = listaMeteoros;
+    Meteoro* anterior = NULL;
+
+    while (atual != NULL) {
+        atual->y++; // Física
+
+        if (atual->x == jogador.x && atual->y == jogador.y) gameOver = 1; // Colisão
+
+        if (atual->y >= ALTURA) {
+            Meteoro* remover = atual;
+            if (anterior == NULL) listaMeteoros = atual->prox;
+            else anterior->prox = atual->prox;
+            
+            atual = atual->prox;
+            free(remover); // Liberação de memória
+            score += 10;
+        } else {
+            anterior = atual;
+            atual = atual->prox;
+        }
+    }
 }
