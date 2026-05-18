@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <windows.h>
 #include "game.h"
 
@@ -72,5 +73,47 @@ void atualizarMeteoros() {
             anterior = atual;
             atual = atual->prox;
         }
+    }
+}
+
+
+
+
+void gerenciarTopScore() {
+    FILE* arquivo;
+    int recorde = 0;
+    char nomeRecordista[50] = "Ninguem";
+
+    arquivo = fopen("topscore.txt", "r");
+    if (arquivo != NULL) {
+        fscanf(arquivo, "%s %d", nomeRecordista, &recorde);
+        fclose(arquivo);
+    }
+
+
+    system("cls");
+    printf("====== GAME OVER ======\nSua pontuacao: %d\n\n", score);
+
+    if (score > recorde) {
+        printf("NOVO RECORDE!!!\nDigite seu primeiro nome: ");
+        char nome[50];
+        scanf("%49s", nome);
+
+        arquivo = fopen("topscore.txt", "w");
+        if (arquivo != NULL) {
+            fprintf(arquivo, "%s %d\n", nome, score);
+            fclose(arquivo);
+        }
+        printf("Recorde salvo com sucesso!\n");
+    } else {
+        printf("Recorde atual: %s com %d pontos.\n", nomeRecordista, recorde);
+    }
+
+        // Limpeza de segurança da memória restante
+    Meteoro* atual = listaMeteoros;
+    while(atual != NULL) {
+        Meteoro* remover = atual;
+        atual = atual->prox;
+        free(remover);
     }
 }

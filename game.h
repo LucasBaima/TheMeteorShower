@@ -28,6 +28,7 @@ void atualizarMeteoros();
 void prepararMatriz();
 void desenharTela();
 void processarInput();
+void gerenciarTopScore();
 
 
 #endif
