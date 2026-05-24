@@ -1,8 +1,9 @@
 
+#include <stdio.h>
 #include <stdlib.h>
 #include "keyboard.h" //header cli-clb
 #include "screen.h" //header cli-clb
-#include <time.h>  //Declaração de time.h para usar a função time()
+#include <timer.h>  //Declaração de time.h para usar a função time()
 #include "game.h"
 
 void processarInput() {

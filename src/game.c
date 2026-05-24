@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "screen.h" //header cli-clb
+#include "keyboard.h"
 #include "game.h"
 
 char matrizTela[ALTURA][LARGURA];
