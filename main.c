@@ -1,13 +1,13 @@
 
 #include <stdlib.h>
-#include <windows.h>
-#include <conio.h>
-#include "game.h"
+#include "keyboard.h" //header cli-clb
+#include "screen.h" //header cli-clb
 #include <time.h>  //Declaração de time.h para usar a função time()
+#include "game.h"
 
 void processarInput() {
-    if (_kbhit()) {
-        char tecla = _getch();
+    if (keyhit()) {
+        char tecla = readch();  //Alteração para usar readch() do header cli-clb
         if ((tecla == 'a' || tecla == 'A') && jogador.x > 0) jogador.x--;
         if ((tecla == 'd' || tecla == 'D') && jogador.x < LARGURA - 1) jogador.x++;
         if (tecla == 'q' || tecla == 'Q') gameOver = 1;
@@ -18,8 +18,10 @@ void processarInput() {
 
 
 int main() {
-    srand(time(NULL));
-    system("cls");
+    screenInit(0); //Inicialização da tela usando a função do header cli-clb
+    keyboardInit(); //Inicialização do teclado usando a função do header cli-clb
+    timerInit(50); //Inicialização do timer usando a função do header cli-clb
+
     inicializarJogo();
     
     while (!gameOver) {
@@ -28,10 +30,16 @@ int main() {
         atualizarMeteoros();
         prepararMatriz();
         desenharTela();
-        Sleep(50);
+        
+        while (!timerTimeOver());
     }
 
     gerenciarTopScore();
+
+    // Restaura o terminal para o estado original
+    keyboardDestroy();
+    screenDestroy();
+    
    
     return 0;
 }

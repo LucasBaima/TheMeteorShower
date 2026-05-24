@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <windows.h>
+#include "screen.h" //header cli-clb
 #include "game.h"
 
 char matrizTela[ALTURA][LARGURA];
@@ -37,8 +37,8 @@ void prepararMatriz() {
 }
 
 void desenharTela() {
-    COORD coord = {0, 0};
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+    // ALTERADO: SetConsoleCursorPosition(...) -> screenHomeCursor()
+    screenHomeCursor();
     printf("=== METEOR DODGE ===\n");
     for (int i = 0; i < LARGURA + 2; i++) printf("-");
     printf("\n");
@@ -49,6 +49,8 @@ void desenharTela() {
     }
     for (int i = 0; i < LARGURA + 2; i++) printf("-");
     printf("\n");
+    // ADICIONADO: flush imediato para evitar flickering
+    screenUpdate();
 }
 
 void atualizarMeteoros() {
@@ -90,12 +92,16 @@ void gerenciarTopScore() {
     }
 
 
-    system("cls");
+    screenClear();
+    screenUpdate();
+
     printf("====== GAME OVER ======\nSua pontuacao: %d\n\n", score);
 
     if (score > recorde) {
         printf("NOVO RECORDE!!!\nDigite seu primeiro nome: ");
         char nome[50];
+
+        keyboardDestroy(); // Restaura o terminal para modo normal antes do scanf
         scanf("%49s", nome);
 
         arquivo = fopen("topscore.txt", "w");
