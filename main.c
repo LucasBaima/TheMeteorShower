@@ -1,8 +1,9 @@
-#include <stdio.h>
+
 #include <stdlib.h>
 #include <windows.h>
 #include <conio.h>
 #include "game.h"
+#include <time.h>  //Declaração de time.h para usar a função time()
 
 void processarInput() {
     if (_kbhit()) {
@@ -24,9 +25,13 @@ int main() {
     while (!gameOver) {
         processarInput();
         if (rand() % 100 < 30) gerarMeteoro(); // Gera meteoros dinamicamente
+        atualizarMeteoros();
         prepararMatriz();
         desenharTela();
         Sleep(50);
     }
+
+    gerenciarTopScore();
+   
     return 0;
 }
