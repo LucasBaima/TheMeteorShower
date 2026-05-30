@@ -38,7 +38,7 @@ void prepararMatriz() {
 }
 
 void desenharTela() {
-    // ALTERADO: SetConsoleCursorPosition(...) -> screenHomeCursor()
+    // volta pro topo sem apagar a tela, evita o pisca-pisca
     screenHomeCursor();
     printf("=== METEOR DODGE ===\n");
     for (int i = 0; i < LARGURA + 2; i++) printf("-");
@@ -50,7 +50,7 @@ void desenharTela() {
     }
     for (int i = 0; i < LARGURA + 2; i++) printf("-");
     printf("\n");
-    // ADICIONADO: flush imediato para evitar flickering
+      // manda tudo pro terminal de uma vez, evitando múltiplos flushs
     screenUpdate();
 }
 
